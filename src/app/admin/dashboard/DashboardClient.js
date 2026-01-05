@@ -4,6 +4,17 @@ import DeleteButton from "./DeleteButton";
 import { useRouter } from "next/navigation";
 import EditProductForm from "./EditProductForm";
 import StockChart from "./StockChart";
+import ProductTable from "./ProductTable";
+
+function Section({ title, children }) {
+  return (
+    <div className="neo-box p-6">
+      <h2 className="text-2xl font-extrabold mb-4">{title}</h2>
+      {children}
+    </div>
+  );
+}
+
 
 export default function DashboardClient({ products }) {
   const router = useRouter();
@@ -13,19 +24,20 @@ export default function DashboardClient({ products }) {
   }
 
   return (
-    <>
-      <AddProductForm onSuccess={refresh} />
+    <div className="neo-box p-6">
+      <Section title="Add Product">
+        <AddProductForm onSuccess={refresh} />
+      </Section>
 
-      <ul>
-        {products.map((p) => (
-          <li key={p._id}>
-            <EditProductForm product={p} onSuccess={refresh} />
-            <DeleteButton id={p._id} onSuccess={refresh} />
-          </li>
-        ))}
-      </ul>
+      <Section title="Products">
+        <ProductTable products={products} onRefresh={refresh} />
+      </Section>
 
-      <StockChart products={products}/>
-    </>
+      <Section title="Stock Overview">
+        <StockChart products={products} />
+      </Section>
+
+
+    </div>
   );
 }

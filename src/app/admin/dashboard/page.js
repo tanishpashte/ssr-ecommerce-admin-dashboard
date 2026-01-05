@@ -4,9 +4,6 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import LogoutButton from "./LogoutButton";
 import { connectDB } from "@/app/lib/db";
 import Product from "@/app/models/Product";
-import AddProductForm from "./AddProductForm";
-import DeleteButton from "./DeleteButton";
-import { revalidatePath } from "next/cache";
 import DashboardClient from "./DashboardClient";
 
 export default async function Dashboard() {
@@ -20,15 +17,23 @@ export default async function Dashboard() {
   const products = await Product.find().lean();
 //   console.log(products)
 
-  return (
-    <>
-        <h1>Admin Dashboard</h1>
-        <LogoutButton />
-        <DashboardClient products={products.map(p => ({
+ return (
+  <div className="max-w-7xl mx-auto space-y-10">
+    {/* Header */}
+    <div className="flex justify-between items-center">
+      <h1 className="text-4xl font-extrabold">Dashboard</h1>
+      <LogoutButton />
+    </div>
+
+    {/* Main dashboard content */}
+    <DashboardClient
+      products={products.map((p) => ({
         ...p,
         _id: p._id.toString(),
-        }))} />
-    </>
-  );
+      }))}
+    />
+  </div>
+);
+ 
 
 }

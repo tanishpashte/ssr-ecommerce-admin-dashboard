@@ -10,5 +10,11 @@ export default function DeleteButton({ id, onSuccess }) {
     onSuccess();
   }
 
-  return <button onClick={handleDelete}>Delete</button>;
+  return (
+  <button 
+    onClick={handleDelete}       
+    className="neo-button bg-red-300 text-black"
+  >
+      Delete
+  </button>);
 }
