@@ -21,3 +21,10 @@ export async function DELETE(req) {
   await Product.findByIdAndDelete(id);
   return NextResponse.json({ success: true });
 }
+
+export async function PUT(req) {
+  await connectDB();
+  const { id, ...data } = await req.json();
+  const updated = await Product.findByIdAndUpdate(id, data, { new: true });
+  return NextResponse.json(updated);
+}
