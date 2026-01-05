@@ -2,6 +2,7 @@
 import { useState } from "react";
 
 export default function AddProductForm({ onSuccess }) {
+  const [imageFile, setImageFile] = useState(null);
   const [form, setForm] = useState({
     name: "",
     price: "",
@@ -12,11 +13,27 @@ export default function AddProductForm({ onSuccess }) {
   async function handleSubmit(e) {
     e.preventDefault();
 
+    let url = form.imageUrl || "";
+
+    if (imageFile) {
+        const fileData = new FormData();
+        fileData.append("file", imageFile);
+
+        const uploadRes = await fetch("/api/upload", {
+            method: "POST",
+            body: fileData,
+        });
+        const data = await uploadRes.json();
+        url = data.url;
+    }
+
+
     await fetch("/api/products", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         ...form,
+        imageUrl: url,
         price: Number(form.price),
         stock: Number(form.stock),
       }),
@@ -36,6 +53,7 @@ export default function AddProductForm({ onSuccess }) {
         onChange={(e) => setForm({ ...form, stock: e.target.value })} />
       <input placeholder="Category" value={form.category}
         onChange={(e) => setForm({ ...form, category: e.target.value })} />
+        <input type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files[0])}/>
       <button type="submit">Add Product</button>
     </form>
   );
