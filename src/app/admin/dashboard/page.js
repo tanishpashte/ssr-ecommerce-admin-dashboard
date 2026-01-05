@@ -4,6 +4,10 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import LogoutButton from "./LogoutButton";
 import { connectDB } from "@/app/lib/db";
 import Product from "@/app/models/Product";
+import AddProductForm from "./AddProductForm";
+import DeleteButton from "./DeleteButton";
+import { revalidatePath } from "next/cache";
+import DashboardClient from "./DashboardClient";
 
 export default async function Dashboard() {
   const session = await getServerSession(authOptions);
@@ -18,18 +22,13 @@ export default async function Dashboard() {
 
   return (
     <>
-      <h1>Admin Dashboard</h1>
-      <LogoutButton />
-
-      <h2>Products</h2>
-      
-      <ul>
-        {products.map((p) => (
-          <li key={p._id.toString()}>
-            {p.name} — ₹{p.price} — Stock: {p.stock}
-          </li>
-        ))}
-      </ul>
+        <h1>Admin Dashboard</h1>
+        <LogoutButton />
+        <DashboardClient products={products.map(p => ({
+        ...p,
+        _id: p._id.toString(),
+        }))} />
     </>
   );
+
 }
