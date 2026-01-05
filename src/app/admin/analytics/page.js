@@ -1,8 +1,29 @@
-export default function AnalyticsPage() {
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { connectDB } from "@/app/lib/db";
+import Product from "@/app/models/Product";
+import AnalyticsClient from "./AnalyticsClient";
+
+export default async function AnalyticsPage() {
+  const session = await getServerSession(authOptions);
+  if (!session || session.user.role !== "admin") {
+    redirect("/admin/login");
+  }
+
+  await connectDB();
+  const products = await Product.find().lean();
+
   return (
-    <div className="max-w-7xl mx-auto text-white">
-      <h1 className="text-4xl font-extrabold mb-6">Analytics</h1>
-      <p className="font-bold">Analytics and charts coming here.</p>
+    <div className="max-w-7xl mx-auto space-y-10">
+      <h1 className="text-4xl font-extrabold">Analytics</h1>
+
+      <AnalyticsClient
+        products={products.map((p) => ({
+          ...p,
+          _id: p._id.toString(),
+        }))}
+      />
     </div>
   );
 }
