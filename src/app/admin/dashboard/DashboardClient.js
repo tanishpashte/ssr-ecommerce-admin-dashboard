@@ -1,5 +1,9 @@
 "use client";
+
+import useSWR from "swr";
 import StockChart from "./StockChart";
+
+const fetcher = (url) => fetch(url).then((res) => res.json());
 
 function Section({ title, children }) {
   return (
@@ -11,23 +15,28 @@ function Section({ title, children }) {
 }
 
 export default function DashboardClient({ products }) {
+  const { data: swrProducts } = useSWR(
+    "/api/products",
+    fetcher,
+    { fallbackData: products }
+  );
+
   return (
     <div className="space-y-10">
-      {/* Overview Analytics */}
       <Section title="Stock Overview">
-        <StockChart products={products} />
+        <StockChart products={swrProducts} />
       </Section>
 
       <Section title="Quick Stats">
         <ul className="font-bold space-y-2">
-          <li>Total Products: {products.length}</li>
+          <li>Total Products: {swrProducts.length}</li>
           <li>
             Total Stock:{" "}
-            {products.reduce((sum, p) => sum + p.stock, 0)}
+            {swrProducts.reduce((sum, p) => sum + p.stock, 0)}
           </li>
           <li>
             Low Stock Items:{" "}
-            {products.filter((p) => p.stock < 10).length}
+            {swrProducts.filter((p) => p.stock < 10).length}
           </li>
         </ul>
       </Section>

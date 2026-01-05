@@ -2,6 +2,7 @@
 
 import { signIn } from "next-auth/react";
 import { useState } from "react";
+import Link from "next/link";
 
 export default function AdminLogin() {
   const [email, setEmail] = useState("");
@@ -25,7 +26,7 @@ export default function AdminLogin() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#fefefe]">
+    <div className="min-h-screen flex items-center justify-center bg-cover bg-center" style={{backgroundImage: "url('/hero-bg.avif')" }}>
       <form
         onSubmit={handleSubmit}
         className="neo-box p-8 w-full max-w-md"
@@ -59,6 +60,12 @@ export default function AdminLogin() {
         <button className="neo-button bg-blue-300 w-full">
           Login
         </button>
+
+        <Link href="/">
+          <button className="neo-button bg-yellow-300 fixed top-5 left-5">
+            Back to Home
+          </button>
+        </Link>
       </form>
     </div>
   );
