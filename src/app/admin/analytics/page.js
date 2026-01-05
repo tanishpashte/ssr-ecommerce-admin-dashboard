@@ -16,7 +16,7 @@ export default async function AnalyticsPage() {
 
   return (
     <div className="max-w-7xl mx-auto space-y-10">
-      <h1 className="text-4xl font-extrabold">Analytics</h1>
+      <h1 className="text-4xl font-extrabold text-white  mt-4">Analytics</h1>
 
       <AnalyticsClient
         products={products.map((p) => ({
