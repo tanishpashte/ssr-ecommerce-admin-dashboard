@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex items-center justify-center bg-[#fefefe]">
+    <main className="min-h-screen flex items-center justify-center bg-cover bg-center" style={{backgroundImage: "url('/hero-bg.avif')" }}>
       <div className="neo-box p-10 max-w-xl text-center space-y-6">
         <h1 className="text-4xl font-extrabold">
           E-commerce Admin Dashboard
