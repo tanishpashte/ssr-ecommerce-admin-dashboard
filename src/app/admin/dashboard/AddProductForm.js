@@ -104,6 +104,7 @@ export default function AddProductForm({ onSuccess }) {
           type="file"
           accept="image/*"
           onChange={(e) => setImageFile(e.target.files[0])}
+          className="border-3"
         />
       </div>
 

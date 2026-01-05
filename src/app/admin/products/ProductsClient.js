@@ -19,6 +19,8 @@ function Section({ title, children }) {
 export default function ProductsClient({ products }) {
   const router = useRouter();
   const [view, setView] = useState("table"); // "table" | "grid"
+  const [showForm, setShowForm] = useState(false);
+
 
   function refresh() {
     router.refresh();
@@ -28,8 +30,34 @@ export default function ProductsClient({ products }) {
     <div className="space-y-10">
       {/* Add Product */}
       <Section title="Add Product">
-        <AddProductForm onSuccess={refresh} />
-      </Section>
+  {!showForm && (
+    <button
+      onClick={() => setShowForm(true)}
+      className="neo-button bg-green-300"
+    >
+      + Add New Product
+    </button>
+  )}
+
+  {showForm && (
+    <div className="mt-4 space-y-4">
+      <AddProductForm
+        onSuccess={() => {
+          refresh();
+          setShowForm(false);
+        }}
+      />
+
+      <button
+        onClick={() => setShowForm(false)}
+        className="neo-button bg-gray-200"
+      >
+        Cancel
+      </button>
+    </div>
+  )}
+</Section>
+
 
       {/* Products */}
       <Section title="Products">

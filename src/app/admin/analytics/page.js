@@ -4,6 +4,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { connectDB } from "@/app/lib/db";
 import Product from "@/app/models/Product";
 import AnalyticsClient from "./AnalyticsClient";
+import BackButton from "@/app/components/BackButton";
 
 export default async function AnalyticsPage() {
   const session = await getServerSession(authOptions);
@@ -17,7 +18,7 @@ export default async function AnalyticsPage() {
   return (
     <div className="max-w-7xl mx-auto space-y-10">
       <h1 className="text-4xl font-extrabold text-white  mt-4">Analytics</h1>
-
+    <BackButton />
       <AnalyticsClient
         products={products.map((p) => ({
           ...p,
