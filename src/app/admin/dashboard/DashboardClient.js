@@ -3,6 +3,7 @@ import AddProductForm from "./AddProductForm";
 import DeleteButton from "./DeleteButton";
 import { useRouter } from "next/navigation";
 import EditProductForm from "./EditProductForm";
+import StockChart from "./StockChart";
 
 export default function DashboardClient({ products }) {
   const router = useRouter();
@@ -23,6 +24,8 @@ export default function DashboardClient({ products }) {
           </li>
         ))}
       </ul>
+
+      <StockChart products={products}/>
     </>
   );
 }

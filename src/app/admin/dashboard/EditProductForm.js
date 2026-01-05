@@ -5,7 +5,10 @@ import { productSchema } from "@/app/lib/productSchema";
 export default function EditProductForm({ product, onSuccess }) {
     const [imageFile, setImageFile] = useState(null);
   const [step, setStep] = useState(1);
-  const [form, setForm] = useState(product);
+  const [form, setForm] = useState({
+  ...product,
+  id: product._id,   
+});
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -38,10 +41,12 @@ export default function EditProductForm({ product, onSuccess }) {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        ...form,
-        imageUrl,
+        id: form.id,
+        name: form.name,
+        category: form.category,
         price: Number(form.price),
         stock: Number(form.stock),
+        imageUrl,
       }),
     });
     setForm((prev) => ({
