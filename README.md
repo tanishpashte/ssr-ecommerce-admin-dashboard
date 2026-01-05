@@ -2,6 +2,8 @@
 
 A high-performance, server-side rendered (SSR) admin suite designed for modern e-commerce management. Built with the **Next.js App Router**, this dashboard prioritizes speed, clean architecture, and a bold **Neobrutalism UI** aesthetic.
 
+> Live Link: https://ssr-ecommerce-admin-dashboard-chi.vercel.app/
+
 ---
 
 ### ✨ Key Features
@@ -88,7 +90,7 @@ npm run dev           # Start development server
 
 | Project Demo |
 | --- |
-| 📺 **[Watch the Demo Video](https://www.google.com/search?q=your-link-here)** |
+| 📺 **[Watch the Demo Video](https://youtu.be/IsS_cYteSfc?si=nYzo1DcjTypXsD59)** |
 
 > **Note:** The database comes pre-seeded. Some products intentionally lack images to demonstrate fallback UI states and empty state handling.
 
